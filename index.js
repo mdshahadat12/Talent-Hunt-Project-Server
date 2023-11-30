@@ -101,7 +101,7 @@ async function run() {
       // console.log(result);
     });
 
-     app.get('/api/v1/user/:email', async (req,res)=>{
+     app.get('/api/v1/user/:email',middleman, async (req,res)=>{
       const {email} = req.params;
       const filter = {email:email}
       const result = await userCollection.findOne(filter)
@@ -129,14 +129,14 @@ async function run() {
       res.send(result);
     });
 
-    app.get('/api/v1/allcontest/:email', async (req,res)=>{
+    app.get('/api/v1/allcontest/:email',middleman, async (req,res)=>{
       const {email} = req.params;
       const filter = {email:email}
       const result = await allContestCollection.find(filter).toArray()
       res.send(result);
     })
 
-    app.delete("/api/v1/allcontest/:id", async (req, res) => {
+    app.delete("/api/v1/allcontest/:id",middleman, async (req, res) => {
       const id = req.params.id;
       console.log(id);
       const find = { _id: new ObjectId(id) };
@@ -154,7 +154,7 @@ async function run() {
       res.send(result);
     })
     app.get('/api/v1/bestcontest', async (req,res)=>{
-      const result = await allContestCollection.find().sort({ participator : "desc" }).limit(4).toArray();
+      const result = await allContestCollection.find().sort({ participator : "desc" }).limit(6).toArray();
       res.send(result);
     })
 
@@ -165,7 +165,7 @@ async function run() {
       // console.log(result);
     });
 
-    app.put('/api/v1/allcontestadmin/:id', async (req,res)=>{
+    app.put('/api/v1/allcontestadmin/:id',middleman, async (req,res)=>{
       const {id} = req.params;
       const UpdatedInfo = req.body;
       const filter = {_id: new ObjectId(id)}
@@ -180,7 +180,7 @@ async function run() {
       res.send(result);
     })
 
-    app.get("/api/v1/contest/:id", async (req, res) => {
+    app.get("/api/v1/contest/:id",middleman, async (req, res) => {
       const id = req.params.id;
       console.log(id);
       const find = { _id: new ObjectId(id) };
@@ -207,14 +207,14 @@ async function run() {
       })
     });
 
-    app.post("/api/v1/save-participent", async (req, res) => {
+    app.post("/api/v1/save-participent",middleman, async (req, res) => {
       const {info} = req.body;
       console.log(info);
       const result = await participentCollection.insertOne(info);
       res.send(result);
     });
 
-    app.put('/api/v1/contestup/:id', async (req,res)=>{
+    app.put('/api/v1/contestup/:id',middleman, async (req,res)=>{
       const {id} = req.params;
       const {participator} = req.body;
       const filter = {_id: new ObjectId(id)}
@@ -229,21 +229,21 @@ async function run() {
       res.send(result);
     })
 
-    app.get('/api/v1/winner/:id', async (req,res)=>{
+    app.get('/api/v1/winner/:id',middleman, async (req,res)=>{
       const {id} = req.params;
       console.log(id);
       const filter = {winner:id}
       const result = await participentCollection.find(filter).toArray()
       res.send(result);
     })
-    app.get('/api/v1/perticipat/:id', async (req,res)=>{
+    app.get('/api/v1/perticipat/:id',middleman, async (req,res)=>{
       const {id} = req.params;
       console.log(id);
       const filter = {participentEmail:id}
       const result = await participentCollection.find(filter).toArray()
       res.send(result);
     })
-    app.get('/api/v1/contestwinner/:id', async (req,res)=>{
+    app.get('/api/v1/contestwinner/:id',middleman, async (req,res)=>{
       const {id} = req.params;
       console.log(id);
       const filter = {mainId:id}
@@ -251,7 +251,7 @@ async function run() {
       res.send(result);
     })
 
-    app.put('/api/v1/contestwinneremail/:id', async (req,res)=>{
+    app.put('/api/v1/contestwinneremail/:id',middleman, async (req,res)=>{
       const {id} = req.params;
       const {email} = req.body;
       console.log('up',id,email);
